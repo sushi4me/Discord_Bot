@@ -1,6 +1,7 @@
 import const
 import os
 from bot import ServerBot
+from discord.ext import commands
 
 def setupEnvironment():
     config_vars = {}
