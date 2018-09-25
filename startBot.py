@@ -47,7 +47,7 @@ if __name__ == "__main__":
         formatter=None,
         description=description,
         pm_help=False)
-    bot = setupBot()
+    bot = setupBot(bot)
 
     # Login, start bot
     bot.add_cog(ServerBot(bot))
