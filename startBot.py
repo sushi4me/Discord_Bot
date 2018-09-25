@@ -21,7 +21,4 @@ if __name__ == "__main__":
 
     # Create ServerBot object
     description = "A small bot."
-    bot = ServerBot(config_dict['prefix'], description)
-
-    # Login, start bot
-    bot.run(config_dict['token'])
+    bot = ServerBot(config_dict, description)

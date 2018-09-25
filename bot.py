@@ -4,8 +4,8 @@ from discord import Game, Status
 from discord.ext import commands
 
 class ServerBot():
-    def __init__(self, command_prefix, description):
-        bot = commands.Bot(command_prefix=command_prefix, description=description)
+    def __init__(self, config_dict, description):
+        bot = commands.Bot(command_prefix=config_dict['prefix'], description=description)
         dprint('Success!')
 
         @bot.event
@@ -33,3 +33,6 @@ class ServerBot():
         @bot.command()
         async def cat(ctx):
             await ctx.send("https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif")
+
+        # Login, start bot
+        bot.run(config_dict['token'])
