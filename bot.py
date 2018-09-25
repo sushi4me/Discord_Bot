@@ -12,7 +12,7 @@ bot = commands.Bot(command_prefix=BOT_PREFIX)
 
 @bot.event
 async def on_ready():
-	print('Logged in as: {0}#{1}\n{3}'.format(bot.user.name, bot.user.id, DIVIDER))
+	print('Logged in as: {0}#{1}\n{2}'.format(bot.user.name, bot.user.id, DIVIDER))
 	# Set the bot's status and activity (different with the rewritten Discord lib)
 	await bot.change_presence(status=discord.Status.online, 
 		activity=discord.Game(name="Literally Botting"))
