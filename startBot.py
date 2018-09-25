@@ -1,10 +1,11 @@
-import const
+import const        # custom
 import os
 
 from bot import ServerBot
 from debug import dprint
 from discord import Game, Status
 from discord.ext import commands
+from optparse import OptionParser
 
 def setupEnvironment():
     config_vars = {}
@@ -40,18 +41,35 @@ def setupBot(bot):
     return bot
 
 if __name__ == "__main__":
-    # Setup environment
-    temp_dict = setupEnvironment()
-    config_dict = getEnvironmentConfigVars(temp_dict)
+    # Parse system args
+    version_no = "v0.0"
+    usage_msg = "Small bot."
 
-    # Create ServerBot object
-    description = "A small bot."
-    bot = commands.Bot(command_prefix=config_dict['prefix'], 
-        formatter=None,
-        description=description,
-        pm_help=False)
-    bot = setupBot(bot)
+    parser = OptionParser(version="v0.0", usage="Small bot.")
+    parser.add_option("-l", "--local", 
+        action='store_true',
+        dest="local"
+        default=False,
+        help="Running locally")
 
-    # Login, start bot
-    bot.add_cog(ServerBot(bot))
-    bot.run(config_dict['token'])
+    options, args = parser.parse_args(sys.argv[1:])
+
+    if options.local is True:
+        # TO DO: provide local option
+        sys.exit("Not complete")
+    else:
+        # Setup environment
+        temp_dict = setupEnvironment()
+        config_dict = getEnvironmentConfigVars(temp_dict)
+
+        # Create ServerBot object
+        description = "A small bot."
+        bot = commands.Bot(command_prefix=config_dict['prefix'], 
+            formatter=None,
+            description=description,
+            pm_help=False)
+        bot = setupBot(bot)
+
+        # Login, start bot
+        bot.add_cog(ServerBot(bot))
+        bot.run(config_dict['token'])

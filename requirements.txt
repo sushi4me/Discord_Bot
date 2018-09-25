@@ -1,4 +1,4 @@
-discord.py[voice]==0.14.2
-youtube-dl==2016.10.21.1
+pip
+youtube-dl
 
-git+https://github.com/Rapptz/discord.py@rewrite
+git+https://github.com/Rapptz/discord.py@rewrite#egg=discord.py[voice]
