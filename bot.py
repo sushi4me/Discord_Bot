@@ -24,6 +24,8 @@ async def on_message(message):
 	if message.content.lower() == "where is bryant?":
 		await message.channel.send("Late.")
 
+	await bot.process_commands(message)
+
 @bot.command()
 async def greet(ctx):
 	await ctx.send(":wave: Hello there!")
