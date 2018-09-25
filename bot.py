@@ -3,9 +3,10 @@ from discord.ext import commands
 
 import os
 
-access_token = os.environ.get("token")
+BOT_PREFIX = os.environ['prefix']
+TOKEN = os.environ.get["token"]
 
-bot = commands.Bot(command_prefix='!')
+bot = commands.Bot(command_prefix=BOT_PREFIX)
 
 @bot.event
 async def on_ready():
@@ -30,4 +31,4 @@ async def greet(ctx):
 async def cat(ctx):
 	await ctx.send("https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif")
 
-bot.run(access_token)
+bot.run(TOKEN)
