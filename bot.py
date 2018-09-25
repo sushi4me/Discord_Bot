@@ -2,6 +2,7 @@ import const
 from debug import dprint
 from discord import Game, Status
 from discord.ext import commands
+from discord.voice_client import VoiceClient
 
 class ServerBot():
     def __init__(self, config_dict, description):
@@ -33,6 +34,14 @@ class ServerBot():
         @bot.command()
         async def cat(ctx):
             await ctx.send("https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif")
+
+        @bot.command(pass_context=True)
+        async def sayit(ctx):
+            url = "https://www.youtube.com/watch?v=ZiE3aVQGf8o"
+            channel = ctx.message.author.voice_channel
+            vc = await bot.join_voice_channel(channel)
+            player = await vc.create_ytdl_player(url)
+            player.start()
 
         # Login, start bot
         bot.run(config_dict['token'])
