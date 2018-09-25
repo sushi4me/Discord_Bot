@@ -1,24 +1,27 @@
+import const
 import os
 from bot import ServerBot
 
 def setupEnvironment():
-    if 'prefix' in os.environ:
-        BOT_PREFIX = os.environ['prefix']
-    else:
-        BOT_PREFIX = DEFAULT_PREFIX
+    config_vars = {}
+    config_vars['prefix'] = "!"
+    config_vars['token'] = "none"
+    return config_vars
 
-    if 'token' in os.environ:
-        TOKEN = os.environ['token']
-    else:
-        sys.exit("You forgot to set a <token> config vars in your environment!")
+def getEnvironmentConfigVars(temp_dict):
+    for key, value in temp_dict.items():
+        if key in os.environ:
+            temp_dict[key] = os.environ[key]
+    return temp_dict
 
 if __name__ == "__main__":
     # Setup environment
-    setupEnvironment()
+    temp_dict = setupEnvironment()
+    config_dict = getEnvironmentConfigVars(temp_dict)
 
     # Create ServerBot object
     description = "A small bot."
-    bot = ServerBot(BOT_PREFIX, description)
+    bot = ServerBot(config_dict['prefix'], description)
 
     # Login, start bot
-    bot.run(TOKEN)
+    bot.run(config_dict['token'])

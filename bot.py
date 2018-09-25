@@ -1,8 +1,7 @@
+import const
 from debug import dprint
 from discord import Game, Status
 from discord.ext import commands
-
-DIVIDER = "----"
 
 class ServerBot():
     def __init__(self, command_prefix, description):
@@ -11,7 +10,7 @@ class ServerBot():
 
         @bot.event
         async def on_ready():
-            dprint('Logged in as: {0}, {1}\n{2}'.format(bot.user.name, bot.user.id, DIVIDER))
+            dprint('Logged in as: {0}, {1}\n{2}'.format(bot.user.name, bot.user.id, const.DIVIDER))
             # Set the bot's status and activity (different with the rewritten Discord lib)
             await bot.change_presence(status=Status.online, 
                 activity=Game(name="Literally Botting"))
