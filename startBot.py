@@ -22,7 +22,7 @@ if __name__ == "__main__":
 
     # Create ServerBot object
     description = "A small bot."
-    bot_base = commands.Bot(config_dict['prefix'], description)
+    bot_base = commands.Bot(command_prefix=config_dict['prefix'], description=description)
 
     # Login, start bot
     bot = ServerBot(bot_base)
