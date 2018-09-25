@@ -4,17 +4,18 @@ from discord.ext import commands
 import os
 
 BOT_PREFIX = os.environ['prefix']
-TOKEN = os.environ["token"]
+TOKEN = os.environ['token']
+
+DIVIDER = "--------------------------------------------------------------------------------"
 
 bot = commands.Bot(command_prefix=BOT_PREFIX)
 
 @bot.event
 async def on_ready():
-	print('Logged in as')
-	print(bot.user.name)
-	print(bot.user.id)
-	print('----------')
-	await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="Literally Botting"))
+	print('Logged in as: {0}#{1}\n{3}').format(bot.user.name, bot.user.id, DIVIDER)
+	# Set the bot's status and activity (different with the rewritten Discord lib)
+	await bot.change_presence(status=discord.Status.online, 
+		activity=discord.Game(name="Literally Botting"))
 
 @bot.event
 async def on_message(message):
