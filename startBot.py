@@ -24,7 +24,7 @@ def setupBot(bot):
         dprint("Logged in as: {0}, {1}\n{2}".format(bot.user.name, bot.user.id, const.DIVIDER))
         # Set the bot's status and activity (different with the rewritten Discord lib)
         await bot.change_presence(status=Status.online, 
-            activity=Game(name="Literally Botting"))
+            game=Game(name="Literally Botting"))
 
     @bot.event
     async def on_message(message):

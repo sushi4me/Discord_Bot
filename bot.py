@@ -23,7 +23,7 @@ class ServerBot:
     @commands.command(pass_context=True)
     async def sayit(self, ctx):
         url = "https://www.youtube.com/watch?v=ZiE3aVQGf8o"
-        
+
         channel = ctx.message.author.voice.voice_channel
         await self.bot.join_voice_channel(channel)
 
