@@ -9,7 +9,6 @@ from discord.voice_client import VoiceClient
 class ServerBot:
     def __init__(self, bot):
         self.bot = bot
-        self.voice_states = {}
         dprint('Success!')
 
     @commands.command()
@@ -26,9 +25,3 @@ class ServerBot:
 
         channel = ctx.message.author.voice.voice_channel
         await self.bot.join_voice_channel(channel)
-
-        server = ctx.message.server
-        vc = self.bot.voice_client_in(server)
-        player = await vc.create_ytdl_player(url)
-        players[server.id] = player
-        player.start()
