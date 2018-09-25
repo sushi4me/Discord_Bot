@@ -32,7 +32,7 @@ opus_libs = ['libopus-0.x86.dll', 'libopus-0.x64.dll', 'libopus-0.dll', 'libopus
 ytdl = youtube_dl.YoutubeDL(ytdl_format_options)
 
 if not opus.is_loaded():
-    opus.load_opus(opus_libs)
+    opus.load_opus('opus')
 
 class YTDLSource(PCMVolumeTransformer):
     def __init__(self, source, *, data, volume=0.5):
