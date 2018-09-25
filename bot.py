@@ -72,7 +72,7 @@ class ServerBot:
         if ctx.voice_client is not None:
             vc = await ctx.voice_client.move_to(channel)
             dprint("Moved to {0}".format(channel))
-        else
+        else:
             voice_client = await channel.connect()
             dprint("Connected to {0}".format(channel))
         
