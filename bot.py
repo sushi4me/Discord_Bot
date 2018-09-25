@@ -56,6 +56,9 @@ class ServerBot:
         self.bot = bot
         dprint('Success!')
 
+    def run(self, token):
+        self.bot.run(token)
+
     async def on_ready():
         dprint('Logged in as: {0}, {1}\n{2}'.format(bot.user.name, bot.user.id, const.DIVIDER))
         # Set the bot's status and activity (different with the rewritten Discord lib)
