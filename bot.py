@@ -57,16 +57,17 @@ class ServerBot:
         dprint('Success!')
 
     @commands.command()
-    async def echo(ctx):
+    async def echo(self, ctx):
         await ctx.send(":wave: Hello there!")
 
     @commands.command()
-    async def cat(ctx):
+    async def cat(self, ctx):
         await ctx.send("https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif")
 
     @commands.command()
-    async def sayit(self, ctx, *, channel: VoiceChannel):
+    async def sayit(self, ctx):
         url = "https://www.youtube.com/watch?v=ZiE3aVQGf8o"
+        channel = ctx.message.author.voice_channel
 
         if ctx.voice_client is not None:
             vc = await ctx.voice_client.move_to(channel)
