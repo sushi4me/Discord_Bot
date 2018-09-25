@@ -67,7 +67,7 @@ class ServerBot:
     @commands.command()
     async def sayit(self, ctx):
         url = "https://www.youtube.com/watch?v=ZiE3aVQGf8o"
-        channel = ctx.message.author.voice_channel
+        channel = ctx.message.author.voice.voice_channel
 
         if ctx.voice_client is not None:
             vc = await ctx.voice_client.move_to(channel)
