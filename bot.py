@@ -56,23 +56,23 @@ class ServerBot:
         self.bot = bot
         dprint('Success!')
 
-    @commands.Bot.event
-    async def on_ready():
-        dprint('Logged in as: {0}, {1}\n{2}'.format(bot.user.name, bot.user.id, const.DIVIDER))
-        # Set the bot's status and activity (different with the rewritten Discord lib)
-        await bot.change_presence(status=Status.online, 
-            activity=Game(name="Literally Botting"))
+        @self.bot.event
+        async def on_ready():
+            dprint('Logged in as: {0}, {1}\n{2}'.format(bot.user.name, bot.user.id, const.DIVIDER))
+            # Set the bot's status and activity (different with the rewritten Discord lib)
+            await bot.change_presence(status=Status.online, 
+                activity=Game(name="Literally Botting"))
 
-    @commands.Bot.event
-    async def on_message(message):
-        # Messages sent by the bot are ignored
-        if message.author == bot.user:
-            return
-        # Bot will response given these patterns in a message
-        if message.content.lower() == "where is bryant?":
-            await message.channel.send("Late.")
-        # If a message does not match the above, attempt to parse as command
-        await bot.process_commands(message)
+        @self.bot.event
+        async def on_message(message):
+            # Messages sent by the bot are ignored
+            if message.author == bot.user:
+                return
+            # Bot will response given these patterns in a message
+            if message.content.lower() == "where is bryant?":
+                await message.channel.send("Late.")
+            # If a message does not match the above, attempt to parse as command
+            await bot.process_commands(message)
 
     @commands.command()
     async def echo(ctx):
