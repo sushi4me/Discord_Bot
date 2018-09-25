@@ -2,7 +2,7 @@ import const
 import youtube_dl
 
 from debug import dprint
-from discord import FFmpegPCMAudio, PCMVolumeTransformer, VoiceChannel
+from discord import FFmpegPCMAudio, opus, PCMVolumeTransformer, VoiceChannel
 from discord.ext import commands
 from discord.voice_client import VoiceClient
 
@@ -31,8 +31,8 @@ opus_libs = ['libopus-0.x86.dll', 'libopus-0.x64.dll', 'libopus-0.dll', 'libopus
 
 ytdl = youtube_dl.YoutubeDL(ytdl_format_options)
 
-if not discord.opus.is_loaded():
-    discord.opus.load_opus()
+if not opus.is_loaded():
+    opus.load_opus()
 
 class YTDLSource(PCMVolumeTransformer):
     def __init__(self, source, *, data, volume=0.5):
