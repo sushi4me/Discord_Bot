@@ -13,7 +13,7 @@ if not opus.is_loaded():
     for opus_lib in opus_libs:
         try:
             opus.load_opus(opus_lib)
-            return
+            break
         except OSError:
             pass
 
