@@ -1,37 +1,33 @@
-import discord
+from debug import dprint
+from discord import Game, Status
 from discord.ext import commands
 
-import os
+DIVIDER = "----"
 
-BOT_PREFIX = os.environ['prefix']
-TOKEN = os.environ['token']
+class ServerBot():
+    def __init__(self):
+        dprint('Success!')
 
-DIVIDER = "--------------------------------------------------------------------------------"
+    @bot.event
+    async def on_ready():
+        dprint('Logged in as: {0}#{1}\n{2}'.format(bot.user.name, bot.user.id, DIVIDER))
+        # Set the bot's status and activity (different with the rewritten Discord lib)
+        await bot.change_presence(status=Status.online, 
+            activity=Game(name="Literally Botting"))
 
-bot = commands.Bot(command_prefix=BOT_PREFIX)
+    @bot.event
+    async def on_message(message):
+        if message.author == bot.user:
+            return
+        if message.content.lower() == "where is bryant?":
+            await message.channel.send("Late.")
 
-@bot.event
-async def on_ready():
-	print('Logged in as: {0}#{1}\n{2}'.format(bot.user.name, bot.user.id, DIVIDER))
-	# Set the bot's status and activity (different with the rewritten Discord lib)
-	await bot.change_presence(status=discord.Status.online, 
-		activity=discord.Game(name="Literally Botting"))
+    await bot.process_commands(message)
 
-@bot.event
-async def on_message(message):
-	if message.author == bot.user:
-		return
-	if message.content.lower() == "where is bryant?":
-		await message.channel.send("Late.")
+    @bot.command()
+    async def echo(ctx):
+        await ctx.send(":wave: Hello there!")
 
-	await bot.process_commands(message)
-
-@bot.command()
-async def greet(ctx):
-	await ctx.send(":wave: Hello there!")
-
-@bot.command()
-async def cat(ctx):
-	await ctx.send("https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif")
-
-bot.run(TOKEN)
+    @bot.command()
+    async def cat(ctx):
+        await ctx.send("https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif")
