@@ -1,6 +1,8 @@
 import const
 import os
+
 from bot import ServerBot
+from debug import dprint
 from discord.ext import commands
 
 def setupEnvironment():
