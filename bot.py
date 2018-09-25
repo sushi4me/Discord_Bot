@@ -9,7 +9,6 @@ from discord.voice_client import VoiceClient
 # Suppress noise about console usage from errors
 youtube_dl.utils.bug_reports_message = lambda: ''
 
-
 ytdl_format_options = {
     'format': 'bestaudio/best',
     'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
@@ -28,7 +27,12 @@ ffmpeg_options = {
     'options': '-vn'
 }
 
+opus_libs = ['libopus-0.x86.dll', 'libopus-0.x64.dll', 'libopus-0.dll', 'libopus.so.0', 'libopus.0.dylib']
+
 ytdl = youtube_dl.YoutubeDL(ytdl_format_options)
+
+if not discord.opus.is_loaded():
+    discord.opus.load_opus()
 
 class YTDLSource(PCMVolumeTransformer):
     def __init__(self, source, *, data, volume=0.5):
