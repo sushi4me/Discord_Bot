@@ -4,7 +4,7 @@ from discord.ext import commands
 import os
 
 BOT_PREFIX = os.environ['prefix']
-TOKEN = os.environ.get["token"]
+TOKEN = os.environ["token"]
 
 bot = commands.Bot(command_prefix=BOT_PREFIX)
 
