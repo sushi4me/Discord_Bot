@@ -2,7 +2,7 @@ const Discord = require("discord.js")
 const bot = new Discord.Client()
 const fs = require("fs")
 const token = process.env.token
-const excl = "!"
+const excl = config.prefix
 
 bot.commands = new Discord.Collection()
 
