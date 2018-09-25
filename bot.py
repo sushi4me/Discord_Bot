@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
 
+import os
+
 access_token = os.environ["token"]
 
 bot = commands.Bot(command_prefix='!')
