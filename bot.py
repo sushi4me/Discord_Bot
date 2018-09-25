@@ -85,7 +85,7 @@ class ServerBot:
         dprint("Attempting to join {0}".format(channel))
 
         if channel is not None:
-                channel.connect()
+            await channel.connect()
         
         player = await YTDLSource.from_url(url, loop=self.bot.loop)
         ctx.voice_client.play(player, after=lambda e: print('Player error %s' % e) if e else None)
