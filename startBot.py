@@ -1,5 +1,6 @@
 import const        # custom
 import os
+import sys
 
 from bot import ServerBot
 from debug import dprint
