@@ -1,8 +1,6 @@
 import os
 from bot import ServerBot
 
-DIVIDER = "----"
-
 def setupEnvironment():
     if 'prefix' in os.environ:
         BOT_PREFIX = os.environ['prefix']
@@ -18,7 +16,9 @@ if __name__ == "__main__":
     # Setup environment
     setupEnvironment()
 
-    bot = createBot()
+    # Create ServerBot object
+    description = "A small bot."
+    bot = ServerBot(BOT_PREFIX, description)
 
     # Login, start bot
     bot.run(TOKEN)
