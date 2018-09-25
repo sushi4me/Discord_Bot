@@ -85,7 +85,7 @@ class ServerBot:
         dprint("Attempting to join {0}".format(channel))
 
         if channel is not None:
-            state = self.get_voice_state(ctx.message.server)
+            state = self.get_voice_state(channel.server)
             if state.voice is None:
                 state.voice = await self.bot.join_voice_channel(channel)
             else:
