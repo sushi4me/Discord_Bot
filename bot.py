@@ -54,6 +54,7 @@ class YTDLSource(PCMVolumeTransformer):
 class ServerBot:
     def __init__(self, bot):
         self.bot = bot
+        self.voice_states = {}
         dprint('Success!')
 
     @commands.command()
@@ -64,6 +65,19 @@ class ServerBot:
     async def cat(self, ctx):
         await ctx.send("https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif")
 
+    def get_voice_state(self, server):
+        state = self.voice_states.get(server.id)
+        if state is None:
+            state = VoiceState(self.bot)
+            self.voice_states[server.id] = state
+
+        return state
+
+    async def create_voice_client(self, channel):
+        voice = await self.bot.join_voice_channel(channel)
+        state = self.get_voice_state(channel.server)
+        state.voice = voice
+
     @commands.command()
     async def sayit(self, ctx):
         url = "https://www.youtube.com/watch?v=ZiE3aVQGf8o"
@@ -71,7 +85,7 @@ class ServerBot:
         dprint("Attempting to join {0}".format(channel))
 
         if channel is not None:
-            state = s elf.get_voice_state(ctx.message.server)
+            state = self.get_voice_state(ctx.message.server)
             if state.voice is None:
                 state.voice = await self.bot.join_voice_channel(channel)
             else:
