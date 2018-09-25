@@ -2,7 +2,7 @@ import const
 import youtube_dl
 
 from debug import dprint
-from discord import Game, Status, VoiceChannel
+from discord import FFmpegPCMAudio, Game, PCMVolumeTransformer, Status, VoiceChannel
 from discord.ext import commands
 from discord.voice_client import VoiceClient
 
@@ -30,8 +30,7 @@ ffmpeg_options = {
 
 ytdl = youtube_dl.YoutubeDL(ytdl_format_options)
 
-
-class YTDLSource(discord.PCMVolumeTransformer):
+class YTDLSource(PCMVolumeTransformer):
     def __init__(self, source, *, data, volume=0.5):
         super().__init__(source, volume)
 
@@ -50,7 +49,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
             data = data['entries'][0]
 
         filename = data['url'] if stream else ytdl.prepare_filename(data)
-        return cls(discord.FFmpegPCMAudio(filename, **ffmpeg_options), data=data)
+        return cls(FFmpegPCMAudio(filename, **ffmpeg_options), data=data)
 
 class ServerBot:
     def __init__(self, bot):
