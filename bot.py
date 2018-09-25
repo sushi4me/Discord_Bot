@@ -67,14 +67,15 @@ class ServerBot:
     @commands.command()
     async def sayit(self, ctx):
         url = "https://www.youtube.com/watch?v=ZiE3aVQGf8o"
-        channel = ctx.message.author.voice.voice_channel
+        channel = ctx.message.author.voice_channel
+        dprint("Attempting to join {0}".format(channel))
 
-        if ctx.voice_client is not None:
-            vc = await ctx.voice_client.move_to(channel)
-            dprint("Moved to {0}".format(channel))
-        else:
-            voice_client = await channel.connect()
-            dprint("Connected to {0}".format(channel))
+        if channel is not None:
+            state = s elf.get_voice_state(ctx.message.server)
+            if state.voice is None:
+                state.voice = await self.bot.join_voice_channel(channel)
+            else:
+                await state.voice.move_to(channel)
         
         player = await YTDLSource.from_url(url, loop=self.bot.loop)
         ctx.voice_client.play(player, after=lambda e: print('Player error %s' % e) if e else None)
