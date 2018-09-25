@@ -3,11 +3,21 @@ import const
 import discord
 
 from debug import dprint
+from discord import opus
 from discord.ext import commands
 from discord.voice_client import VoiceClient
 
-if not discord.opus.is_loaded():
-    discord.opus.load_opus('opus.dll')
+opus_libs = ['libopus-0.x86.dll', 'libopus-0.x64.dll', 'libopus-0.dll', 'libopus.so.0', 'libopus.0.dylib']
+
+if not opus.is_loaded():
+    for opus_lib in opus_libs:
+        try:
+            opus.load_opus(opus_lib)
+            return
+        except OSError:
+            pass
+
+    raise RuntimeError("Could not load an opus lib. Tried: %s" % (', '.join(opus_libs)))
 
 class VoiceState:
     def __init__(self, bot):

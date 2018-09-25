@@ -1,7 +1,7 @@
 aiohttp
+discord.py[voice] ~= 0.16.0
+opuslib
 pip
 PyNaCl
 websockets
 youtube-dl
-
-git+https://github.com/Rapptz/discord.py@rewrite
