@@ -1,5 +1,6 @@
-discord.py[voice]
-ffmpy
+discord.py[voice]==0.14.2
+ffmpy==0.2.1
+youtube-dl==2016.10.21.1
+opuslib
 
 git+https://github.com/Rapptz/discord.py@rewrite
-git+https://github.com/rg3/youtube-dl@master
