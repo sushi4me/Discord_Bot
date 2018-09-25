@@ -3,7 +3,6 @@ const config = require("./config.json")
 const bot = new Discord.Client()
 const fs = require("fs")
 const token = process.env.token
-const excl = config.prefix
 
 bot.commands = new Discord.Collection()
 
@@ -40,7 +39,7 @@ bot.on("message", async message => {
 	let content = message.content.split(" ")
 	let command = content[0]
 	let args = content.slice(1)
-	let prefix = excl
+	let prefix = config.prefix
 	let commandfile = bot.commands.get(command.slice(prefix.length))
 
 	if (commandfile)
