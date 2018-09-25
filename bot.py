@@ -1,26 +1,31 @@
 import discord
 from discord.ext import commands
 
-import os
-
 access_token = os.environ["token"]
 
 bot = commands.Bot(command_prefix='!')
 
 @bot.event
-async def on_message(mesage):
-	if message.author == client.user:
-		return
-
-	if message.content.startswith('!hello'):
-		msg = 'Hello {0.author.mention}'.format(message)
-		await client.send_message(message.channel, msg)
-
-@bot.event
 async def on_ready():
 	print('Logged in as')
-	print(client.user.name)
-	print(client.user.id)
+	print(bot.user.name)
+	print(bot.user.id)
 	print('----------')
+	await bot.change_presence(game=discord.Game(name="Literally Botting"))
+
+@bot.event
+async def on_message(message):
+	if message.author == bot.user:
+		return
+	if message.content.lower() == "where is bryant?":
+		await bot.send_message(message.channel, "Late.")
+
+@bot.command()
+async def greet(ctx):
+	await ctx.send(":wave: Hello there!")
+
+@bot.command()
+async def cat(ctx):
+	await ctx.send("https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif")
 
 bot.run(access_token)
