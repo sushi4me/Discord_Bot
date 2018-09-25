@@ -10,14 +10,14 @@ class ServerBot():
         dprint('Success!')
 
     @self.bot.event
-    async def on_ready():
+    async def on_ready(self):
         dprint('Logged in as: {0}, {1}\n{2}'.format(self.bot.user.name, self.bot.user.id, DIVIDER))
         # Set the bot's status and activity (different with the rewritten Discord lib)
         await bot.change_presence(status=Status.online, 
             activity=Game(name="Literally Botting"))
 
     @self.bot.event
-    async def on_message(message):
+    async def on_message(self, message):
         # Messages sent by the bot are ignored
         if message.author == self.bot.user:
             return
