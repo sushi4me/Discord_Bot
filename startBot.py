@@ -3,6 +3,7 @@ import os
 
 from bot import ServerBot
 from debug import dprint
+from discord import Game, Status
 from discord.ext import commands
 
 def setupEnvironment():

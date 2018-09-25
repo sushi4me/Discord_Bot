@@ -2,7 +2,7 @@ import const
 import youtube_dl
 
 from debug import dprint
-from discord import FFmpegPCMAudio, Game, PCMVolumeTransformer, Status, VoiceChannel
+from discord import FFmpegPCMAudio, PCMVolumeTransformer, VoiceChannel
 from discord.ext import commands
 from discord.voice_client import VoiceClient
 
