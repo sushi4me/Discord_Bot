@@ -48,7 +48,7 @@ if __name__ == "__main__":
     parser = OptionParser(version="v0.0", usage="Small bot.")
     parser.add_option("-l", "--local", 
         action='store_true',
-        dest="local"
+        dest="local",
         default=False,
         help="Running locally")
 
