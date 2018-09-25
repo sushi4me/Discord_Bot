@@ -29,10 +29,10 @@ ffmpeg_options = {
 
 ytdl = youtube_dl.YoutubeDL(ytdl_format_options)
 
-if not opus.is_loaded():
-    opus.load_opus('opus')
+if not discord.opus.is_loaded():
+    discord.opus.load_opus('opus')
 
-class YTDLSource(PCMVolumeTransformer):
+class YTDLSource(discord.PCMVolumeTransformer):
     def __init__(self, source, *, data, volume=0.5):
         super().__init__(source, volume)
 
@@ -51,7 +51,7 @@ class YTDLSource(PCMVolumeTransformer):
             data = data['entries'][0]
 
         filename = data['url'] if stream else ytdl.prepare_filename(data)
-        return cls(FFmpegPCMAudio(filename, **ffmpeg_options), data=data)
+        return cls(discord.FFmpegPCMAudio(filename, **ffmpeg_options), data=data)
 
 class ServerBot:
     def __init__(self, bot):
