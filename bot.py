@@ -22,7 +22,7 @@ async def on_message(message):
 	if message.author == bot.user:
 		return
 	if message.content.lower() == "where is bryant?":
-		await message.channel.send(message.channel, "Late.")
+		await message.channel.send("Late.")
 
 @bot.command()
 async def greet(ctx):
