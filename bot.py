@@ -71,7 +71,18 @@ class ServerBot:
 
         if ctx.voice_client is not None:
             vc = await ctx.voice_client.move_to(channel)
+            dprint("Moved to {0}".format(channel))
+        else
+            voice_client = await channel.connect()
+            dprint("Connected to {0}".format(channel))
         
         player = await YTDLSource.from_url(url, loop=self.bot.loop)
         ctx.voice_client.play(player, after=lambda e: print('Player error %s' % e) if e else None)
-        await vtc.voice_client.disconnect()
+
+        server = ctx.message.server
+        voice_client = client.voice_client_in(server)
+        if voice_client:
+            await vtc.voice_client.disconnect()
+            dprint("Left the voice channel")
+        else:
+            dprint("Not in a voice channel")

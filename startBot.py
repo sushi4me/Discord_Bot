@@ -21,7 +21,7 @@ def getEnvironmentConfigVars(temp_dict):
 def setupBot(bot):    
     @bot.event
     async def on_ready():
-        dprint('Logged in as: {0}, {1}\n{2}'.format(bot.user.name, bot.user.id, const.DIVIDER))
+        dprint("Logged in as: {0}, {1}\n{2}".format(bot.user.name, bot.user.id, const.DIVIDER))
         # Set the bot's status and activity (different with the rewritten Discord lib)
         await bot.change_presence(status=Status.online, 
             activity=Game(name="Literally Botting"))
