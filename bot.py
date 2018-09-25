@@ -7,7 +7,7 @@ from discord.ext import commands
 from discord.voice_client import VoiceClient
 
 if not discord.opus.is_loaded():
-    discord.opus.load_opus('opus')
+    discord.opus.load_opus('opus.dll')
 
 class VoiceState:
     def __init__(self, bot):
