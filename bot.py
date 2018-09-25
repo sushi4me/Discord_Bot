@@ -81,7 +81,7 @@ class ServerBot:
     @commands.command()
     async def sayit(self, ctx):
         url = "https://www.youtube.com/watch?v=ZiE3aVQGf8o"
-        channel = ctx.message.author.voice_channel
+        channel = ctx.message.author.voice.voice_channel
         dprint("Attempting to join {0}".format(channel))
 
         if channel is not None:
