@@ -1,4 +1,5 @@
 const Discord = require("discord.js")
+const config = require("./config.json")
 const bot = new Discord.Client()
 const fs = require("fs")
 const token = process.env.token
