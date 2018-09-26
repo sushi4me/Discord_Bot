@@ -6,7 +6,7 @@ from random import choice
 class Giphy:
     def __init__(self, server_bot):
         self.server_bot = server_bot
-        self.session = server_bot.session
+        #self.session = server_bot.session
         self.giphy_api_key = server_bot.giphy_api_key
         self.get_random_gif = 'https://api.giphy.com/v1/gifs/random'
         self.get_searched_gif = 'https://api.giphy.com/v1/gifs/search'
