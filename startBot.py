@@ -34,6 +34,14 @@ config = ConfigParser()
 config.read('config.ini')
 
 
+# Load opus
+if not discord.opus.is_loaded():
+    try:
+        opus.load_opus("lib/libopus-0.x64.dll")
+    except OSError:
+        print("Could not load opus!")
+
+
 class ServerBot(commands.Bot):
     def __init__(self):
         super(ServerBot, self).__init__(command_prefix=commands.when_mentioned_or('!'),

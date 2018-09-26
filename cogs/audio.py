@@ -26,7 +26,7 @@ class Audio:
 
     @commands.command(name="join")
     async def _join_channel(self, ctx):
-        if ctx.message.author.voice is not None:
+        if isinstance(ctx.message.author, discord.Member) and ctx.message.author.voice is not None:
             print("Aha! {0} is in {1}".format(ctx.message.author.name, 
                 ctx.message.author.voice.channel.name))
             await ctx.message.author.voice.channel.connect(timeout=10, 
