@@ -9,7 +9,7 @@ from random import choice
 class Audio:
     def __init__(self, server_bot):
         self.server_bot = server_bot
-        self.voice_client = voice_client
+        self.voice_client = None
 
     @property
     def voice_channel(self):
