@@ -44,7 +44,7 @@ class ServerBot(commands.Bot):
         self.session = aiohttp.ClientSession(loop=self.loop)
         self.prefix = os.environ['prefix']
         self.token = os.environ['discord_token']
-        self.giphy_api_key = os.environ['giphy_token']
+        #self.giphy_api_key = os.environ['giphy_token']
         self.debug = os.environ['debug']
 
         for extension in extensions:
