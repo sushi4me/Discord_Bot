@@ -101,7 +101,7 @@ class Giphy:
             return False
         else:
             print(inspect.getmro(self.server_bot))
-            await self.server_bot.join_voice_channel(voice_state.channel)
+            await self.server_bot.__class__.join_voice_channel(voice_state.channel)
         """
         state = self.get_voice_state(ctx.message.author)
         if state.channel is None:
