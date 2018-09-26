@@ -93,6 +93,16 @@ class Giphy:
             self.voice_state[author.id] = state
         return state
 
+    @commands.command(name="join")
+    async def _join_channel(self, ctx):
+        voice_state = ctx.message.author.voice
+        if voice_state is None:
+            await self.server_bot.say("You are not in a voice channel.")
+            return False
+        else:
+            print(self.server_bot.__class__.__mro__)
+            await self.server_bot.get_cog('cogs.giphy')
+            await self.server_bot.join_voice_channel(voice_state.channel)
         """
         state = self.get_voice_state(ctx.message.author)
         if state.channel is None:
