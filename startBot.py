@@ -69,7 +69,7 @@ class ServerBot(commands.Bot):
         done preparing data received from Discord.
         """
 
-        await self.create_pool()
+        #await self.create_pool()
 
         #print(f"{self.bot_name} - {self.client_id}")
         print(f"{datetime.now().strftime('%B %d, %Y - %I:%M%p')}")
