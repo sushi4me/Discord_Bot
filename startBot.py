@@ -88,7 +88,7 @@ class ServerBot(commands.Bot):
         An event that is called when an error is 
         raised while invoking a command.
         """
-
+        
         if isinstance(error, commands.CommandOnCooldown):
             minutes, seconds = divmod(error.retry_after, 60)
             await ctx.send(f"This command is on cooldown. Please wait {seconds:.0f} seconds.")          
