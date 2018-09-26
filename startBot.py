@@ -17,7 +17,6 @@ extensions = (
     'cogs.discord',
     'cogs.games',
     'cogs.giphy',
-    'cogs.leagueoflegends',
     'cogs.tracker',
     'cogs.weather'
 )
