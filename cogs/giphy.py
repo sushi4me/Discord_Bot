@@ -78,7 +78,7 @@ class Giphy:
     """
     @commands.command(name="join")
     async def _join_channel(self, ctx):
-        channel = ctx.message.author.voice_channel
+        channel = ctx.message.author.voice.voice_channel
         if channel is None:
             await self.server_bot.say("You are not in a voice channel.")
             return False
