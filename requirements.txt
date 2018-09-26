@@ -5,3 +5,4 @@ websockets
 youtube-dl
 
 git+https://github.com/Rapptz/discord.py@rewrite
+git+https://github.com/StewPoll/safygiphy

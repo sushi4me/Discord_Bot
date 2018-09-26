@@ -55,14 +55,14 @@ if __name__ == "__main__":
         os.environ[const.TOKEN_STR] = config[const.DEFAULT_STR][const.TOKEN_STR]
         os.environ[const.DEBUG_STR] = config[const.DEFAULT_STR][const.DEBUG_STR]
 
-        print("Got config vars from local file")
+        dprint("Got config vars from local file")
     else:
         # Setup environment
         config_dict[const.PREFIX_STR] = os.environ[const.PREFIX_STR]
         config_dict[const.TOKEN_STR] = os.environ[const.TOKEN_STR]
         config_dict[const.DEBUG_STR] = os.environ[const.DEBUG_STR]
 
-        print("Got config vars from os.environ")
+        dprint("Got config vars from os.environ")
 
     # Create ServerBot object
     description = "A small bot."
