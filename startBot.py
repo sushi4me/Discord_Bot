@@ -1,5 +1,3 @@
-import aiohttp
-import asyncpg
 import discord
 import os
 import sys

@@ -1,4 +1,3 @@
-import aiohttp
 import inspect
 
 from discord import File

@@ -1,4 +1,3 @@
-import discord
 import inspect
 
 from discord import File
@@ -20,7 +19,7 @@ class Audio:
 
     @commands.command(name="join")
     async def _join_channel(self, ctx):
-        print(ctx.__class__.__mro__)
+        print("ctx: {0}".format(ctx.__class__.__mro__))
 
 
 # Necessary for cogs
