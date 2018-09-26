@@ -8,6 +8,7 @@ import aiohttp
 import asyncpg
 import discord
 import os
+import lib.configManager
 import sys
 import time
 import traceback
