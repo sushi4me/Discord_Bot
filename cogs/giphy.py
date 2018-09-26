@@ -100,8 +100,8 @@ class Giphy:
             await self.server_bot.say("You are not in a voice channel.")
             return False
         else:
-            print(inspect.getmro(self.server_bot))
-            await self.server_bot.__class__.join_voice_channel(voice_state.channel)
+            print(self.server_bot.__class__.__mro__)
+            await self.server_bot.join_voice_channel(voice_state.channel)
         """
         state = self.get_voice_state(ctx.message.author)
         if state.channel is None:
