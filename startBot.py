@@ -12,9 +12,9 @@ import sys
 import time
 import traceback
 
-from configparser import ConfigParser
 from datetime import datetime
 from discord.ext import commands
+from optparse import OptionParser
 
 
 # List of extensions
@@ -29,13 +29,8 @@ extensions = (
 )
 
 
-# Read configuration file from local
-config = ConfigParser()
-config.read('config.ini')
-
-
 class ServerBot(commands.Bot):
-    def __init__(self):
+    def __init__(self, config_dict):
         super(ServerBot, self).__init__(command_prefix=commands.when_mentioned_or('!'),
                                         pm_help=None, 
                                         help_attrs=dict(hidden=True))
@@ -51,10 +46,10 @@ class ServerBot(commands.Bot):
         """
         self.start_time = time.time()
         self.session = aiohttp.ClientSession(loop=self.loop)
-        self.prefix = os.environ['prefix']
-        self.discord_token = os.environ['discord_token']
-        #self.giphy_api_key = os.environ['giphy_token']
-        self.debug = os.environ['debug']
+        self.prefix = config_dict['prefix']
+        self.discord_token = config_dict['discord_token']
+        #self.giphy_api_key = config_dict['giphy_token']
+        self.debug = config_dict['debug']
 
         for extension in extensions:
             try:
@@ -96,6 +91,22 @@ class ServerBot(commands.Bot):
         super().run(self.discord_token, reconnect=True)
 
 
-# Create and run ServerBot
-server_bot = ServerBot()
-server_bot.run()
+if __name__ == "__main__":
+    # Option parser
+    parser = OptionParser()
+    parser.add_option("-l", "--local",
+        dest="local",
+        default=False,
+        action="store_true",
+        help="Will get config vars from a file instead.")
+    (options, args) = parser.parse_args()
+
+    # Read configuration file from local
+    if options.local:
+        config = ConfigManager(config_file="config.ini")
+    else:
+        config = ConfigManager()
+
+    # Create and run ServerBot
+    server_bot = ServerBot(config.config_dict)
+    server_bot.run()
