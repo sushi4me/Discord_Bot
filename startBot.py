@@ -8,7 +8,6 @@ import aiohttp
 import asyncpg
 import discord
 import os
-import configManager
 import sys
 import time
 import traceback
@@ -16,6 +15,7 @@ import traceback
 from datetime import datetime
 from discord.ext import commands
 from optparse import OptionParser
+from .configManager import ConfigManager
 
 
 # List of extensions
