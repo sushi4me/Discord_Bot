@@ -15,18 +15,12 @@ class Giphy:
         self.get_trending_gif = 'https://api.giphy.com/v1/gifs/trending'
 
     async def get(self, url: str, params: dict):
-        """get(self, url, params)
-        A function that makes a request to a server, and checks the
-        status code and returns the response content.
-        """
-
         async with self.session.get(url, params=params) as response:
             if response.status is 200:
                 return await response.json()
             else:
                 return False
 
-    """
     @commands.command(name="test_gif")
     async def _test_gif(self, ctx):
         # Initialize an empty list
@@ -41,7 +35,7 @@ class Giphy:
 
         # Send the files list
         await ctx.send(content=attachment, files=files_list)
-
+    """
     @commands.command()
     async def gif(self, ctx):
         params = {
