@@ -76,6 +76,14 @@ class Giphy:
         url = choice(values)
         await ctx.send(url)
     """
+    @comamnds.command(name="join")
+    async def _join_channel(self, ctx):
+        channel = ctx.message.author.voice_channel
+        if channel is None:
+            await self.server_bot.say("You are not in a voice channel.")
+            return False
+        else:
+            await self.server_bot.join_voice_channel(channel)
 
 
 def setup(server_bot):
