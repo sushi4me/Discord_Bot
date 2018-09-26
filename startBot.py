@@ -81,13 +81,10 @@ class ServerBot(commands.Bot):
         print(f"{datetime.now().strftime('%B %d, %Y - %I:%M%p%z')}")
 
     async def on_message(self, message):
-        """on_message(self, message)
-        An event that is called every time a
-        message is recieved.
-        """
-
         if message.author.bot:
             return
+        if message.content.lower() == "where is bryant?":
+            await self.send("Late.")
 
         await self.process_commands(message)
 
