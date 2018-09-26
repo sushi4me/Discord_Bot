@@ -1,8 +1,9 @@
-import const        # custom
+import configparser
+import lib.const
 import os
 import sys
 
-from bot import ServerBot
+from lib.bot import ServerBot
 from debug import dprint
 from discord import Game, Status
 from discord.ext import commands
@@ -10,8 +11,8 @@ from optparse import OptionParser
 
 def setupEnvironment():
     config_vars = {}
-    config_vars['prefix'] = "!"
-    config_vars['token'] = "none"
+    config_vars[const.PREFIX_STR] = const.DEFUALT_PREFIX
+    config_vars[const.TOKEN_STR] = "none"
     return config_vars
 
 def getEnvironmentConfigVars(temp_dict):
@@ -43,10 +44,7 @@ def setupBot(bot):
 
 if __name__ == "__main__":
     # Parse system args
-    version_no = "v0.0"
-    usage_msg = "Small bot."
-
-    parser = OptionParser(version="v0.0", usage="Small bot.")
+    parser = OptionParser(version=version_no, usage=usage_msg)
     parser.add_option("-l", "--local", 
         action='store_true',
         dest="local",
@@ -56,8 +54,11 @@ if __name__ == "__main__":
     options, args = parser.parse_args(sys.argv[1:])
 
     if options.local is True:
-        # TO DO: provide local option
-        sys.exit("Not complete")
+        # Read config vars from local config file
+        config = configparser.ConfigParser(comment_prefixes=('#'))
+        config.read(const.config)
+        config_dict[const.PREFIX_STR] = config[const.DEFAULT_STR][const.PREFIX_STR]
+        config_dict[const.TOKEN_STR] = config[const.DEFAULT_STR][const.TOKEN_STR]
     else:
         # Setup environment
         temp_dict = setupEnvironment()
