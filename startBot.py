@@ -53,7 +53,7 @@ class ServerBot(commands.Bot):
                 self.load_extension(extension)
             except Exception as e:
                 exc = f"{type(e).__name__}: {e}"
-                print(f"Failed to load extension `{extension}`\n{exc}")
+                print(f"Failed to load extension '{extension}'\n{exc}")
 
     async def create_pool(self):
         """create_pool(self)

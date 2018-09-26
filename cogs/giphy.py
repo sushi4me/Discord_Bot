@@ -30,8 +30,9 @@ class Giphy:
         """
         Testing command for gif sending.
         """
-
-        await ctx.send_file(self.server_bot.get_channel(ctx.message.author.id), "../media/PoweredByGiphyBadge.gif")
+        
+        giphy_badge = discord.File("../media/PoweredByGiphyBadge.gif")
+        await ctx.send(file=giphy_badge)
 
     @commands.command()
     async def gif(self, ctx):
