@@ -11,6 +11,24 @@ from datetime import datetime
 from discord.ext import commands
 
 
+# List of extensions
+extensions = (
+    'cogs.basic',
+    'cogs.discord',
+    'cogs.games',
+    'cogs.giphy',
+    'cogs.leagueoflegends',
+    'cogs.postgresql',
+    'cogs.tracker',
+    'cogs.weather'
+)
+
+
+# Read configuration file from local
+config = ConfigParser()
+config.read('config.ini')
+
+
 class ServerBot(commands.Bot):
     def __init__(self):
         super().__init__(command_prefix=commands.when_mentioned_or('!'),
@@ -99,22 +117,6 @@ class ServerBot(commands.Bot):
     def run(self):
         super().run(self.discord_token, reconnect=True)
 
-
-# List of extensions
-extensions = (
-    'cogs.basic',
-    'cogs.discord',
-    'cogs.games',
-    'cogs.giphy',
-    'cogs.leagueoflegends',
-    'cogs.postgresql',
-    'cogs.tracker',
-    'cogs.weather'
-)
-
-# Read configuration file from local
-config = ConfigParser()
-config.read('config.ini')
 
 # Create and run ServerBot
 server_bot = ServerBot()
