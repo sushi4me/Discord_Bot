@@ -13,6 +13,7 @@ from discord.ext import commands
 
 # List of extensions
 extensions = (
+    'cogs.audio',
     'cogs.basic',
     'cogs.discord',
     'cogs.games',

@@ -6,13 +6,6 @@ from discord.ext import commands
 from random import choice
 
 
-class VoiceState:
-    def __init__ (self, bot):
-        self.current = None
-        self.voice = None
-        self.bot = bot
-
-
 class Giphy:
     def __init__(self, server_bot):
         self.server_bot = server_bot
@@ -86,32 +79,6 @@ class Giphy:
         await ctx.send(url)
     """
 
-    def get_voice_state(self, author):
-        state = author.voice
-        if state is None:
-            state = VoiceState(self.server_bot)
-            self.voice_state[author.id] = state
-        return state
-
-    @commands.command(name="join")
-    async def _join_channel(self, ctx):
-        voice_state = ctx.message.author.voice
-        if voice_state is None:
-            await self.server_bot.say("You are not in a voice channel.")
-            return False
-        else:
-            print(self.server_bot.__class__.__mro__)
-            print(self.server_bot.get_cog('cogs.giphy'))
-            await self.server_bot.connect(voice_state.channel)
-        """
-        state = self.get_voice_state(ctx.message.author)
-        if state.channel is None:
-            state.voice = await self.server_bot.join_voice_channel(author.voice.channel)
-        else:
-            await state.voice.move_to(channel)
-        return True
-        """
-
-
+# Necessary for cogs
 def setup(server_bot):
     server_bot.add_cog(Giphy(server_bot))
