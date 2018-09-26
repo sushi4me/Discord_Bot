@@ -18,7 +18,6 @@ extensions = (
     'cogs.games',
     'cogs.giphy',
     'cogs.leagueoflegends',
-    'cogs.postgresql',
     'cogs.tracker',
     'cogs.weather'
 )
@@ -43,8 +42,8 @@ class ServerBot(commands.Bot):
         self.owm_api_key = config['owm']['key']
         self.giphy_api_key = config['giphy']['key']
         self.trn_api_key = config['trn']['key']
-        self.start_time = time.time()
         """
+        self.start_time = time.time()
         self.session = aiohttp.ClientSession(loop=self.loop)
         self.prefix = os.environ['prefix']
         self.discord_token = os.environ['discord_token']
@@ -58,18 +57,7 @@ class ServerBot(commands.Bot):
                 exc = f"{type(e).__name__}: {e}"
                 print(f"Failed to load extension '{extension}'\n{exc}")
 
-    async def create_pool(self):
-        """create_pool(self)
-        A function that creates a connection pool 
-        for the PostgreSQL database.
-        """
-
-        self.pool = await asyncpg.create_pool(dsn=config['postgresql']['connect'], 
-                                              command_timeout=60, 
-                                              min_size=5)
-
     async def on_ready(self):
-        #await self.create_pool()
         await server_bot.change_presence(status=discord.Status.online, 
                                          activity=discord.Game(name="Literally Botting"))
         #print(f"{self.bot_name} - {self.client_id}")
@@ -88,20 +76,12 @@ class ServerBot(commands.Bot):
         An event that is called when an error is 
         raised while invoking a command.
         """
-        
+
         if isinstance(error, commands.CommandOnCooldown):
             minutes, seconds = divmod(error.retry_after, 60)
             await ctx.send(f"This command is on cooldown. Please wait {seconds:.0f} seconds.")          
         elif isinstance(error, commands.CommandNotFound):
-            async with self.pool.acquire() as connection:
-                suggestions = await connection.fetch(f"SELECT command FROM commands WHERE levenshtein(command, '{ctx.invoked_with}') <= 2 LIMIT 5;")
-
-                if suggestions:
-                    await ctx.send('Command not found. Did you mean...')
-                    for index, suggestion in enumerate(suggestions, 1):
-                        await ctx.send(f"{index}) `*{suggestion['command']}`")
-                else:
-                    await ctx.send(f"`*{ctx.invoked_with}` is not a registered command.")
+            await ctx.send(f"Could not find this command: {error}")
         else:
             traceback.print_tb(error.original.__traceback__)
             print(f"{error.original.__class__.__name__}: {error.original}", file=sys.stderr)
