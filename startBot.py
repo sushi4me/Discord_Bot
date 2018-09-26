@@ -21,12 +21,12 @@ from configManager import ConfigManager
 # List of extensions
 extensions = (
     'cogs.audio',
-    'cogs.basic',
-    'cogs.discord',
-    'cogs.games',
-    'cogs.giphy',
-    'cogs.tracker',
-    'cogs.weather'
+    #'cogs.basic',
+    #'cogs.discord',
+    #'cogs.games',
+    'cogs.giphy'
+    #'cogs.tracker',
+    #'cogs.weather'
 )
 
 

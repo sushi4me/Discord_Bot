@@ -50,3 +50,4 @@ class Audio:
 # Necessary for cogs
 def setup(server_bot):
     server_bot.add_cog(Audio(server_bot))
+    print("Audio cog added!")

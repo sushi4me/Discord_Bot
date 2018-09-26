@@ -87,3 +87,4 @@ class Giphy:
 # Necessary for cogs
 def setup(server_bot):
     server_bot.add_cog(Giphy(server_bot))
+    print("Giphy cog added!")
