@@ -35,7 +35,7 @@ class Giphy:
         attachment = "https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif"
 
         # Add Giphy badge
-        giphy_badge = File("./media/powered_by_giphy_60.gif")
+        giphy_badge = File("./media/powered_by_giphy_vert_100.png")
         files_list.append(giphy_badge)
 
         # Send the files list
