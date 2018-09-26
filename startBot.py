@@ -37,7 +37,7 @@ config.read('config.ini')
 # Load opus
 if not discord.opus.is_loaded():
     try:
-        opus.load_opus("lib/libopus-0.x64.dll")
+        discord.opus.load_opus("lib/libopus-0.x64.dll")
     except OSError:
         print("Could not load opus!")
 
