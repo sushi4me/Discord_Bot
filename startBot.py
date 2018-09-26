@@ -1,77 +1,110 @@
-import configparser
-import lib.const as const
-import os
+import aiohttp
+import asyncpg
+import discord
 import sys
+import time
+import traceback
 
-from lib.bot import ServerBot
-from debug import dprint
-from discord import Game, Status
+from configparser import ConfigParser
+from datetime import datetime
 from discord.ext import commands
-from optparse import OptionParser
 
-def setupBot(bot):    
-    @bot.event
-    async def on_ready():
-        dprint("Logged in as: {0}, {1}\n{2}".format(bot.user.name, bot.user.id, const.DIVIDER))
-        # Set the bot's status and activity (different with the rewritten Discord lib)
-        await bot.change_presence(status=Status.online, 
-            activity=Game(name="Literally Botting"))
 
-    @bot.event
-    async def on_message(message):
-        # Messages sent by the bot are ignored
-        if message.author == bot.user:
+extensions = (
+    'cogs.basic',
+    'cogs.discord',
+    'cogs.games',
+    'cogs.giphy',
+    'cogs.leagueoflegends',
+    'cogs.postgresql',
+    'cogs.tracker',
+    'cogs.weather'
+)
+
+config = ConfigParser()
+config.read('config.ini')
+
+
+class ServerBot(commands.Bot):
+    def __init__(self):
+        super().__init__(command_prefix=commands.when_mentioned_or('*'),
+                         pm_help=None, help_attrs=dict(hidden=True))
+
+        self.bot_name = config['bot']['name']
+        self.token = config['bot']['token']
+        self.client_id = config['bot'].getint('client_id')
+        self.owner_id = config['bot'].getint('owner_id')
+        self.lol_api_key = config['lol']['key']
+        self.owm_api_key = config['owm']['key']
+        self.giphy_api_key = config['giphy']['key']
+        self.trn_api_key = config['trn']['key']
+        self.start_time = time.time()
+        self.session = aiohttp.ClientSession(loop=self.loop)
+
+        for extension in extensions:
+            try:
+                self.load_extension(extension)
+            except Exception as e:
+                exc = f"{type(e).__name__}: {e}"
+                print(f"Failed to load extension `{extension}`\n{exc}")
+
+    async def create_pool(self):
+        """create_pool(self)
+        A function that creates a connection pool 
+        for the PostgreSQL database.
+        """
+
+        self.pool = await asyncpg.create_pool(dsn=config['postgresql']['connect'], 
+                                              command_timeout=60, min_size=5)
+
+    async def on_ready(self):
+        """on_ready(self)
+        An event that is called when the client is
+        done preparing data received from Discord.
+        """
+
+        await self.create_pool()
+
+        print(f"{self.bot_name} - {self.client_id}")
+        print(f"{datetime.now().strftime('%B %d, %Y - %I:%M%p')}")
+
+    async def on_message(self, message):
+        """on_message(self, message)
+        An event that is called every time a
+        message is recieved.
+        """
+
+        if message.author.bot:
             return
-        # Bot will response given these patterns in a message
-        if message.content.lower() == "where is bryant?":
-            await message.channel.send("Late.")
-        # If a message does not match the above, attempt to parse as command
-        await bot.process_commands(message)
 
-    return bot
+        await self.process_commands(message)
 
-if __name__ == "__main__":
-    # Parse system args
-    parser = OptionParser(version=const.version_no, usage=const.usage_msg)
-    parser.add_option("-l", "--local", 
-        action='store_true',
-        dest="local",
-        default=False,
-        help="Running locally")
+    async def on_command_error(self, ctx, error):
+        """on_command_error(self, ctx, error)
+        An event that is called when an error is 
+        raised while invoking a command.
+        """
 
-    options, args = parser.parse_args(sys.argv[1:])
+        if isinstance(error, commands.CommandOnCooldown):
+            minutes, seconds = divmod(error.retry_after, 60)
+            await ctx.send(f"This command is on cooldown. Please wait {seconds:.0f} seconds.")          
+        elif isinstance(error, commands.CommandNotFound):
+            async with self.pool.acquire() as connection:
+                suggestions = await connection.fetch(f"SELECT command FROM commands WHERE levenshtein(command, '{ctx.invoked_with}') <= 2 LIMIT 5;")
 
-    config_dict = {}
+                if suggestions:
+                    await ctx.send('Command not found. Did you mean...')
+                    for index, suggestion in enumerate(suggestions, 1):
+                        await ctx.send(f"{index}) `*{suggestion['command']}`")
+                else:
+                    await ctx.send(f"`*{ctx.invoked_with}` is not a registered command.")
+        else:
+            traceback.print_tb(error.original.__traceback__)
+            print(f"{error.original.__class__.__name__}: {error.original}", file=sys.stderr)
 
-    if options.local:
-        # Read config vars from local config file
-        config = configparser.ConfigParser(comment_prefixes=('#'))
-        config.read(const.config)
-        config_dict[const.PREFIX_STR] = config[const.DEFAULT_STR][const.PREFIX_STR]
-        config_dict[const.TOKEN_STR] = config[const.DEFAULT_STR][const.TOKEN_STR]
-        config_dict[const.DEBUG_STR] = config[const.DEFAULT_STR][const.DEBUG_STR]
+    def run(self):
+        super().run(self.token, reconnect=True)
 
-        os.environ[const.PREFIX_STR] = config[const.DEFAULT_STR][const.PREFIX_STR]
-        os.environ[const.TOKEN_STR] = config[const.DEFAULT_STR][const.TOKEN_STR]
-        os.environ[const.DEBUG_STR] = config[const.DEFAULT_STR][const.DEBUG_STR]
 
-        dprint("Got config vars from local file")
-    else:
-        # Setup environment
-        config_dict[const.PREFIX_STR] = os.environ[const.PREFIX_STR]
-        config_dict[const.TOKEN_STR] = os.environ[const.TOKEN_STR]
-        config_dict[const.DEBUG_STR] = os.environ[const.DEBUG_STR]
-
-        dprint("Got config vars from os.environ")
-
-    # Create ServerBot object
-    description = "A small bot."
-    bot = commands.Bot(command_prefix=config_dict[const.PREFIX_STR], 
-        formatter=None,
-        description=description,
-        pm_help=False)
-    bot = setupBot(bot)
-
-    # Login, start bot
-    bot.add_cog(ServerBot(bot))
-    bot.run(config_dict[const.TOKEN_STR])
+server_bot = ServerBot()
+server_bot.run()
