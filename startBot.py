@@ -47,10 +47,10 @@ class ServerBot(commands.Bot):
         """
         self.start_time = time.time()
         self.session = aiohttp.ClientSession(loop=self.loop)
-        self.prefix = config_dict['prefix']
-        self.discord_token = config_dict['discord_token']
-        #self.giphy_api_key = config_dict['giphy_token']
-        self.debug = config_dict['debug']
+        self.prefix = config_dict['DEFAULT']['prefix']
+        self.discord_token = config_dict['DEFAULT']['discord_token']
+        #self.giphy_api_key = config_dict['DEAFULT']['giphy_token']
+        self.debug = config_dict['DEFAULT']['debug']
 
         for extension in extensions:
             try:

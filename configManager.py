@@ -10,6 +10,7 @@ from configparser import ConfigParser
 
 
 # List of necessary config vars
+config_sect_list = ['DEFAULT']
 config_vars_list = ['prefix', 'debug', 'discord_token', 'giphy_token']
 
 
@@ -24,11 +25,11 @@ class ConfigManager:
             self.config_dict = parser.read(self.config_file)
         # Get the config vars from the environment
         else:
-            for config_var in config_vars_list:
+            for config_sect in config_sect_list:
                 try:
-                    self.config_dict[config_var] = os.environ[config_var]
+                    self.config_dict[config_sect] = os.environ[config_sect]
                 except KeyError:
-                    self.config_dict[config_var] = "None"
-                    print("Could not find {0} as a key".format[config_var])
+                    self.config_dict[config_sect] = "None"
+                    print("Could not find {0} as a key".format(config_sect))
 
         print("Parsed config dictionary: {0}".format(self.config_dict))
