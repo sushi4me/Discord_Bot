@@ -1,6 +1,7 @@
 import aiohttp
 import asyncpg
 import discord
+import os
 import sys
 import time
 import traceback
@@ -29,7 +30,7 @@ class ServerBot(commands.Bot):
     def __init__(self):
         super().__init__(command_prefix=commands.when_mentioned_or('*'),
                          pm_help=None, help_attrs=dict(hidden=True))
-
+"""
         self.bot_name = config['bot']['name']
         self.token = config['bot']['token']
         self.client_id = config['bot'].getint('client_id')
@@ -39,7 +40,13 @@ class ServerBot(commands.Bot):
         self.giphy_api_key = config['giphy']['key']
         self.trn_api_key = config['trn']['key']
         self.start_time = time.time()
+"""
         self.session = aiohttp.ClientSession(loop=self.loop)
+
+        self.prefix = os.environ['prefix']
+        self.token = os.environ['discord_token']
+        self.giphy_api_key = os.environ['giphy_token']
+        self.debug = os.environ['debug']
 
         for extension in extensions:
             try:
@@ -65,7 +72,7 @@ class ServerBot(commands.Bot):
 
         await self.create_pool()
 
-        print(f"{self.bot_name} - {self.client_id}")
+        #print(f"{self.bot_name} - {self.client_id}")
         print(f"{datetime.now().strftime('%B %d, %Y - %I:%M%p')}")
 
     async def on_message(self, message):
@@ -103,7 +110,7 @@ class ServerBot(commands.Bot):
             print(f"{error.original.__class__.__name__}: {error.original}", file=sys.stderr)
 
     def run(self):
-        super().run(self.token, reconnect=True)
+        super().run(self.discord_token, reconnect=True)
 
 
 server_bot = ServerBot()
