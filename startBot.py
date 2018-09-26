@@ -70,6 +70,16 @@ class ServerBot(commands.Bot):
         else:
             await self.process_commands(message)
 
+    @commands.command(name="join")
+    async def _join_channel(self, ctx):
+        voice_state = ctx.message.author.voice
+        if voice_state is None:
+            await self.server_bot.say("You are not in a voice channel.")
+            return False
+        else:
+            print(self.__class__.__mro__)
+            await self.join_voice_channel(voice_state.channel)
+
     async def on_command_error(self, ctx, error):
         """on_command_error(self, ctx, error)
         An event that is called when an error is 
