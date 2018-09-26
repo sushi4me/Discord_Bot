@@ -32,7 +32,7 @@ class Giphy:
         Testing command for gif sending.
         """
 
-        giphy_badge = File("../media/PoweredByGiphyBadge.gif")
+        giphy_badge = File("./media/PoweredByGiphyBadge.gif")
         await ctx.send(file=giphy_badge)
 
     @commands.command()
