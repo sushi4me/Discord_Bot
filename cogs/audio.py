@@ -1,3 +1,9 @@
+"""
+audio.py:
+Used as a means to play audio in a voice channel.
+"""
+
+# Import statements
 import discord
 import inspect
 
@@ -26,9 +32,12 @@ class Audio:
         print("[3] {0}".format(ctx.message.channel))
         print("[4] {0}".format(ctx.message.content))
 
-        if isinstance(ctx.message.author, discord.Member):
-            print("[5] {0}".format(ctx.message.author.voice))
-            self.server_bot.connect(ctx.message.author.voice.channel)
+        if ctx.message.author.voice not None:
+            print("Aha! {0} is in {1}".format(ctx.message.author.name, 
+                ctx.message.author.voice.channel.name))
+            ctx.message.author.voice.channel.connect(timeout=10.0, reconnect=True)
+        else:
+            print("{0} is not in a voice channel".format(ctx.message.author.name))
 
 # Necessary for cogs
 def setup(server_bot):

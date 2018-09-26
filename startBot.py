@@ -1,3 +1,9 @@
+"""
+startBot.py:
+Used in setting up and starting the ServerBot.
+"""
+
+# Import statements
 import aiohttp
 import asyncpg
 import discord

@@ -1,3 +1,9 @@
+"""
+giphy.py:
+A random gif-generator!
+"""
+
+# Import statements
 import inspect
 
 from discord import File
