@@ -25,9 +25,10 @@ class ConfigManager:
             self.config_dict = parser.read(self.config_file)
         # Get the config vars from the environment
         else:
+            # Place all found config vars under the DEFAULT section
+            self.config_dict['DEFAULT'] = {}
             for config_var in config_vars_list:
                 try:
-                    self.config_dict['DEFAULT'] = {}
                     self.config_dict['DEFAULT'][config_var] = os.environ[config_var]
                     print("Placed {0} into config_dict[][{1}]".format(os.environ[config_var], config_var))
                 except KeyError:
