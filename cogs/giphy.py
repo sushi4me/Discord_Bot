@@ -30,7 +30,7 @@ class Giphy:
         Testing command for gif sending.
         """
 
-        await ctx.send("../media/PoweredByGiphyBadge.gif")
+        await ctx.send_file(self.server_bot.get_channel(ctx.message.author.id), "../media/PoweredByGiphyBadge.gif")
 
     @commands.command()
     async def gif(self, ctx):

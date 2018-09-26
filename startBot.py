@@ -28,8 +28,9 @@ config.read('config.ini')
 
 class ServerBot(commands.Bot):
     def __init__(self):
-        super().__init__(command_prefix=commands.when_mentioned_or('*'),
-                         pm_help=None, help_attrs=dict(hidden=True))
+        super().__init__(command_prefix=commands.when_mentioned_or('!'),
+                         pm_help=None, 
+                         help_attrs=dict(hidden=True))
         """
         self.bot_name = config['bot']['name']
         self.token = config['bot']['token']
@@ -61,7 +62,8 @@ class ServerBot(commands.Bot):
         """
 
         self.pool = await asyncpg.create_pool(dsn=config['postgresql']['connect'], 
-                                              command_timeout=60, min_size=5)
+                                              command_timeout=60, 
+                                              min_size=5)
 
     async def on_ready(self):
         """on_ready(self)
@@ -70,9 +72,10 @@ class ServerBot(commands.Bot):
         """
 
         #await self.create_pool()
-
+        await bot.change_presence(status=Status.online, 
+            activity=Game(name="Literally Botting"))
         #print(f"{self.bot_name} - {self.client_id}")
-        print(f"{datetime.now().strftime('%B %d, %Y - %I:%M%p')}")
+        print(f"{datetime.now().strftime('%B %d, %Y - %I:%M%p%z')}")
 
     async def on_message(self, message):
         """on_message(self, message)
