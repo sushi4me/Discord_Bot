@@ -9,18 +9,6 @@ from discord import Game, Status
 from discord.ext import commands
 from optparse import OptionParser
 
-def setupEnvironment():
-    config_vars = {}
-    config_vars[const.PREFIX_STR] = const.DEFUALT_PREFIX
-    config_vars[const.TOKEN_STR] = "none"
-    return config_vars
-
-def getEnvironmentConfigVars(temp_dict):
-    for key, value in temp_dict.items():
-        if key in os.environ:
-            temp_dict[key] = os.environ[key]
-    return temp_dict
-
 def setupBot(bot):    
     @bot.event
     async def on_ready():
@@ -62,8 +50,7 @@ if __name__ == "__main__":
         os.environ[const.DEBUG_STR] = config[const.DEFAULT_STR][const.DEBUG_STR]
     else:
         # Setup environment
-        temp_dict = setupEnvironment()
-        config_dict = getEnvironmentConfigVars(temp_dict)
+        pass
 
     # Create ServerBot object
     description = "A small bot."
