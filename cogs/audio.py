@@ -35,7 +35,6 @@ class Audio:
         if ctx.message.author.voice not None:
             print("Aha! {0} is in {1}".format(ctx.message.author.name, ctx.message.author.voice.channel.name))
             voice_channel = ctx.message.author.voice.channel
-            voice_channel.connect()
         else:
             print("{0} is not in a voice channel".format(ctx.message.author.name))
 
