@@ -1,10 +1,9 @@
 aiohttp
 asyncpg
+discord.py[voice]
 paramiko
 pip
 PyNaCl
 pyowm
 websockets
 youtube-dl
-
-git+https://github.com/Rapptz/discord.py@rewrite#egg=discord.py[voice]

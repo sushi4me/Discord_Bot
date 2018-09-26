@@ -22,6 +22,10 @@ extensions = (
 )
 
 
+if not discord.opus.is_loaded():
+    discord.opus.load_opus('lib/opus.dll')
+
+
 # Read configuration file from local
 config = ConfigParser()
 config.read('config.ini')
