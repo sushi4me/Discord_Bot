@@ -1,5 +1,6 @@
 import aiohttp
 
+from discord import File
 from discord.ext import commands
 from random import choice
 
@@ -30,8 +31,8 @@ class Giphy:
         """
         Testing command for gif sending.
         """
-        
-        giphy_badge = discord.File("../media/PoweredByGiphyBadge.gif")
+
+        giphy_badge = File("../media/PoweredByGiphyBadge.gif")
         await ctx.send(file=giphy_badge)
 
     @commands.command()
