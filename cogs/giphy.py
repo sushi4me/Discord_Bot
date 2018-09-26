@@ -24,6 +24,14 @@ class Giphy:
             else:
                 return False
 
+    @commands.command(name="test_gif")
+    async def _test_gif(self, ctx):
+        """
+        Testing command for gif sending.
+        """
+
+        await ctx.send("../media/PoweredByGiphyBadge.gif")
+
     @commands.command()
     async def gif(self, ctx):
         """*gif
