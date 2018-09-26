@@ -101,7 +101,7 @@ class Giphy:
             return False
         else:
             print(self.server_bot.__class__.__mro__)
-            await self.server_bot.get_cog('cogs.giphy')
+            print(self.server_bot.get_cog('cogs.giphy'))
             await self.server_bot.join_voice_channel(voice_state.channel)
         """
         state = self.get_voice_state(ctx.message.author)
