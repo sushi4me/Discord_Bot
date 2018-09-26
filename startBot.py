@@ -29,9 +29,9 @@ config.read('config.ini')
 
 class ServerBot(commands.Bot):
     def __init__(self):
-        super().__init__(command_prefix=commands.when_mentioned_or('!'),
-                         pm_help=None, 
-                         help_attrs=dict(hidden=True))
+        super(ServerBot, self).__init__(command_prefix=commands.when_mentioned_or('!'),
+                                        pm_help=None, 
+                                        help_attrs=dict(hidden=True))
         """
         self.bot_name = config['bot']['name']
         self.token = config['bot']['token']
