@@ -28,12 +28,19 @@ class Giphy:
 
     @commands.command(name="test_gif")
     async def _test_gif(self, ctx):
-        """
-        Testing command for gif sending.
-        """
+        # Initialize an empty list
+        files_list = list()
 
+        # Add content
+        attachment = File("https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif")
+        files_list.append(file)
+
+        # Add Giphy badge
         giphy_badge = File("./media/PoweredByGiphyMessage.gif")
-        await ctx.send(file=giphy_badge)
+        files_list.append(giphy_badge)
+
+        # Send the files list
+        await ctx.send(files=files_list)
 
     @commands.command()
     async def gif(self, ctx):
