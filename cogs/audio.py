@@ -20,6 +20,10 @@ class Audio:
     @commands.command(name="join")
     async def _join_channel(self, ctx):
         print("ctx: {0}".format(ctx.__class__.__mro__))
+        print("[1] {0}".format(ctx.message))
+        print("[2] {0}".format(ctx.message.author))
+        print("[3] {0}".format(ctx.message.channel))
+        print("[4] {0}".format(ctx.message.content))
 
 
 # Necessary for cogs
