@@ -41,20 +41,28 @@ if __name__ == "__main__":
 
     options, args = parser.parse_args(sys.argv[1:])
 
+    config_dict = {}
+
     if options.local:
         # Read config vars from local config file
         config = configparser.ConfigParser(comment_prefixes=('#'))
         config.read(const.config)
+        config_dict[const.PREFIX_STR] = config[const.DEFAULT_STR][const.PREFIX_STR]
+        config_dict[const.TOKEN_STR] = config[const.DEFAULT_STR][const.TOKEN_STR]
+        config_dict[const.DEBUG_STR] = config[const.DEFAULT_STR][const.DEBUG_STR]
+
         os.environ[const.PREFIX_STR] = config[const.DEFAULT_STR][const.PREFIX_STR]
         os.environ[const.TOKEN_STR] = config[const.DEFAULT_STR][const.TOKEN_STR]
         os.environ[const.DEBUG_STR] = config[const.DEFAULT_STR][const.DEBUG_STR]
     else:
         # Setup environment
-        pass
+        config_dict[const.PREFIX_STR] = os.environ[const.PREFIX_STR]
+        config_dict[const.TOKEN_STR] = os.environ[const.TOKEN_STR]
+        config_dict[const.DEBUG_STR] = os.environ[const.DEBUG_STR]
 
     # Create ServerBot object
     description = "A small bot."
-    bot = commands.Bot(command_prefix=os.environ['prefix'], 
+    bot = commands.Bot(command_prefix=config_dict[const.PREFIX_STR], 
         formatter=None,
         description=description,
         pm_help=False)
@@ -62,4 +70,4 @@ if __name__ == "__main__":
 
     # Login, start bot
     bot.add_cog(ServerBot(bot))
-    bot.run(os.environ['token'])
+    bot.run(config_dict[const.TOKEN_STR])
