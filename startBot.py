@@ -41,7 +41,7 @@ if __name__ == "__main__":
 
     options, args = parser.parse_args(sys.argv[1:])
 
-    if options.local is True:
+    if options.local:
         # Read config vars from local config file
         config = configparser.ConfigParser(comment_prefixes=('#'))
         config.read(const.config)
@@ -54,7 +54,7 @@ if __name__ == "__main__":
 
     # Create ServerBot object
     description = "A small bot."
-    bot = commands.Bot(command_prefix=os.environ[const.PREFIX_STR], 
+    bot = commands.Bot(command_prefix=os.environ['prefix'], 
         formatter=None,
         description=description,
         pm_help=False)
@@ -62,4 +62,4 @@ if __name__ == "__main__":
 
     # Login, start bot
     bot.add_cog(ServerBot(bot))
-    bot.run(os.environ[const.TOKEN_STR])
+    bot.run(os.environ['token'])
