@@ -1,6 +1,7 @@
 aiohttp
 asyncpg
 discord.py[voice]
+libopus
 paramiko
 pip
 PyNaCl
