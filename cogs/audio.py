@@ -29,7 +29,8 @@ class Audio:
         if ctx.message.author.voice is not None:
             print("Aha! {0} is in {1}".format(ctx.message.author.name, 
                 ctx.message.author.voice.channel.name))
-            ctx.message.author.voice.channel.connect(timeout=10, reconnect=True)
+            await ctx.message.author.voice.channel.connect(timeout=10, 
+                                                           reconnect=True)
         else:
             print("{0} is not in a voice channel".format(ctx.message.author.name))
 
@@ -40,7 +41,7 @@ class Audio:
         print("[2] {0}".format(ctx.message.author.voice))
         print("[3] {0}".format(ctx.message.channel))
         print("[4] {0}".format(ctx.message.content))
-        print("[5] {0}".format(self.server_bot))
+        print("[5] {0}".format(self.server_bot.voice_clients))
         for voice_client in self.server_bot.voice_clients:
             if voice_client.channel == ctx.message.author.voice.channel:
                 voice_client.disconnect()
