@@ -26,6 +26,7 @@ class Giphy:
             else:
                 return False
 
+    """
     @commands.command(name="test_gif")
     async def _test_gif(self, ctx):
         # Initialize an empty list
@@ -43,10 +44,6 @@ class Giphy:
 
     @commands.command()
     async def gif(self, ctx):
-        """*gif
-        A command that will return a random .gif.
-        """
-
         params = {
             'api_key': self.giphy_api_key
         }
@@ -56,10 +53,6 @@ class Giphy:
 
     @commands.command()
     async def search(self, ctx, *, query):
-        """*search <query>
-        A command that will return a random .gif that matches the search query.
-        """
-
         params = {
             'api_key': self.giphy_api_key,
             'q': query,
@@ -70,19 +63,13 @@ class Giphy:
         }
 
         search_results = await self.get(self.get_searched_gif, params)
-
         values = [v for results in search_results['data']
                   for k, v in results.items() if k == 'url']
-
         url = choice(values)
         await ctx.send(url)
 
     @commands.command()
     async def trending(self, ctx):
-        """*trending
-        A command that will return a random .gif from the trending page of Giphy.
-        """
-
         params = {
             'api_key': self.giphy_api_key,
             'limit': '100',
@@ -90,12 +77,11 @@ class Giphy:
         }
 
         trending_results = await self.get(self.get_trending_gif, params)
-
         values = [v for results in trending_results['data']
                   for k, v in results.items() if k == 'url']
-
         url = choice(values)
         await ctx.send(url)
+    """
 
 
 def setup(server_bot):

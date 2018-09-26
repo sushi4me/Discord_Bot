@@ -102,14 +102,14 @@ class ServerBot(commands.Bot):
 
 # List of extensions
 extensions = (
-    #'cogs.basic',
-    #'cogs.discord',
-    #'cogs.games',
-    'cogs.giphy'
-    #'cogs.leagueoflegends',
-    #'cogs.postgresql',
-    #'cogs.tracker',
-    #'cogs.weather'
+    'cogs.basic',
+    'cogs.discord',
+    'cogs.games',
+    'cogs.giphy',
+    'cogs.leagueoflegends',
+    'cogs.postgresql',
+    'cogs.tracker',
+    'cogs.weather'
 )
 
 # Read configuration file from local
