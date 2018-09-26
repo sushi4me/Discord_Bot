@@ -69,11 +69,6 @@ class ServerBot(commands.Bot):
                                               min_size=5)
 
     async def on_ready(self):
-        """on_ready(self)
-        An event that is called when the client is
-        done preparing data received from Discord.
-        """
-
         #await self.create_pool()
         await server_bot.change_presence(status=discord.Status.online, 
                                          activity=discord.Game(name="Literally Botting"))
@@ -83,10 +78,10 @@ class ServerBot(commands.Bot):
     async def on_message(self, message):
         if message.author.bot:
             return
-        if message.content.lower() == "where is bryant?":
-            await self.send("Late.")
-
-        await self.process_commands(message)
+        elif message.content.lower() == "where is bryant?":
+            await message.channel.send("Late.")
+        else:
+            await self.process_commands(message)
 
     async def on_command_error(self, ctx, error):
         """on_command_error(self, ctx, error)
