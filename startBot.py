@@ -72,8 +72,8 @@ class ServerBot(commands.Bot):
         """
 
         #await self.create_pool()
-        await bot.change_presence(status=Status.online, 
-            activity=Game(name="Literally Botting"))
+        await server_bot.change_presence(status=Status.online, 
+                                         activity=Game(name="Literally Botting"))
         #print(f"{self.bot_name} - {self.client_id}")
         print(f"{datetime.now().strftime('%B %d, %Y - %I:%M%p%z')}")
 
