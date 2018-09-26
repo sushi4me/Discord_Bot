@@ -20,6 +20,6 @@ class ServerBot:
         await ctx.send("https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif")
 
     @commands.command(name="gif_me")
-    async def _random_gif(self, ctx):
-        random_gif = safygiphy.Giphy().random(tag="success")
-        await ctx.send(random_gif)
+    async def _random_gif(self, ctx, tag):
+        random_gif = safygiphy.Giphy().random(tag=tag)
+        await ctx.send(file=discord.File(random_gif))
