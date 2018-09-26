@@ -5,9 +5,17 @@ from discord.ext import commands
 from random import choice
 
 
+class VoiceState:
+    def __init__ (self, bot):
+        self.current = None
+        self.voice = None
+        self.bot = bot
+
+
 class Giphy:
     def __init__(self, server_bot):
         self.server_bot = server_bot
+        self.voice_state = {}
         #self.session = server_bot.session
         #self.giphy_api_key = server_bot.giphy_api_key
         self.get_random_gif = 'https://api.giphy.com/v1/gifs/random'
@@ -76,14 +84,26 @@ class Giphy:
         url = choice(values)
         await ctx.send(url)
     """
+
+    def get_voice_state(self, server):
+        state = self.voice_state.get(server.id)
+        if state is None:
+            state = VoiceState(self.server_bot)
+            self.voice_state[server.id] = state
+        return state
+
     @commands.command(name="join")
     async def _join_channel(self, ctx):
-        channel = ctx.message.author.voice.voice_channel
+        channel = ctx.message.author
         if channel is None:
             await self.server_bot.say("You are not in a voice channel.")
-            return False
+            return False        
+        state = self.get_voice_state(ctx.message.server)
+        if state.voice is None:
+            state.voice = await self.server_bot.join_voice_channel(channel)
         else:
-            await self.server_bot.join_voice_channel(channel)
+            await state.voice.move_to(channel)
+        return True
 
 
 def setup(server_bot):
