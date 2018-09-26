@@ -1,4 +1,5 @@
 import aiohttp
+import inspect
 
 from discord import File
 from discord.ext import commands
@@ -99,7 +100,8 @@ class Giphy:
             await self.server_bot.say("You are not in a voice channel.")
             return False
         else:
-            await super().super().join_voice_channel(voice_state.channel)
+            print(inspect.getmro(self.server_bot))
+            await self.server_bot.join_voice_channel(voice_state.channel)
         """
         state = self.get_voice_state(ctx.message.author)
         if state.channel is None:
