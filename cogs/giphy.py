@@ -31,16 +31,15 @@ class Giphy:
         # Initialize an empty list
         files_list = list()
 
-        # Add content
-        attachment = File("https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif")
-        files_list.append(attachment)
+        # Send content
+        attachment = "https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif"
 
         # Add Giphy badge
         giphy_badge = File("./media/PoweredByGiphyMessage.gif")
         files_list.append(giphy_badge)
 
         # Send the files list
-        await ctx.send(files=files_list)
+        await ctx.send(content=attachment, files=files_list)
 
     @commands.command()
     async def gif(self, ctx):
