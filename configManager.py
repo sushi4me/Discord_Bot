@@ -29,6 +29,7 @@ class ConfigManager:
                 try:
                     self.config_dict['DEFAULT'] = {}
                     self.config_dict['DEFAULT'][config_var] = os.environ[config_var]
+                    print("Placed {0} into config_dict[][{1}]".format(os.environ[config_var], config_var))
                 except KeyError:
                     self.config_dict['DEFAULT'][config_var] = "None"
                     print("Could not find {0} as a key".format(config_var))
