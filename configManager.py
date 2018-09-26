@@ -25,6 +25,10 @@ class ConfigManager:
         # Get the config vars from the environment
         else:
             for config_var in config_vars_list:
-                self.config_dict[config_var] = os.environ[config_var]
+                try:
+                    self.config_dict[config_var] = os.environ[config_var]
+                except KeyError:
+                    self.config_dict[config_var] = "None"
+                    print("Could not find {0} as a key".format[config_var])
 
         print("Parsed config dictionary: {0}".format(self.config_dict))
