@@ -34,13 +34,10 @@ class Audio:
 
         if ctx.message.author.voice not None:
             print("Aha! {0} is in {1}".format(ctx.message.author.name, ctx.message.author.voice.channel.name))
-            ctx.message.author.voice.channel.connect(timeout=10.0, reconnect=True)
+            ctx.message.author.voice.channel.connect()
         else:
             print("{0} is not in a voice channel".format(ctx.message.author.name))
 
-    @commands.command(name="disconnect")
-    async def _disconnect(self, ctx):
-        pass
 
 # Necessary for cogs
 def setup(server_bot):
