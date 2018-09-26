@@ -1,5 +1,5 @@
 import configparser
-import lib.const
+import lib.const as const
 import os
 import sys
 
@@ -44,7 +44,7 @@ def setupBot(bot):
 
 if __name__ == "__main__":
     # Parse system args
-    parser = OptionParser(version=version_no, usage=usage_msg)
+    parser = OptionParser(version=const.version_no, usage=const.usage_msg)
     parser.add_option("-l", "--local", 
         action='store_true',
         dest="local",
@@ -57,21 +57,22 @@ if __name__ == "__main__":
         # Read config vars from local config file
         config = configparser.ConfigParser(comment_prefixes=('#'))
         config.read(const.config)
-        config_dict[const.PREFIX_STR] = config[const.DEFAULT_STR][const.PREFIX_STR]
-        config_dict[const.TOKEN_STR] = config[const.DEFAULT_STR][const.TOKEN_STR]
+        os.environ[const.PREFIX_STR] = config[const.DEFAULT_STR][const.PREFIX_STR]
+        os.environ[const.TOKEN_STR] = config[const.DEFAULT_STR][const.TOKEN_STR]
+        os.environ[const.DEBUG_STR] = config[const.DEFAULT_STR][const.DEBUG_STR]
     else:
         # Setup environment
         temp_dict = setupEnvironment()
         config_dict = getEnvironmentConfigVars(temp_dict)
 
-        # Create ServerBot object
-        description = "A small bot."
-        bot = commands.Bot(command_prefix=config_dict['prefix'], 
-            formatter=None,
-            description=description,
-            pm_help=False)
-        bot = setupBot(bot)
+    # Create ServerBot object
+    description = "A small bot."
+    bot = commands.Bot(command_prefix=os.environ[const.PREFIX_STR], 
+        formatter=None,
+        description=description,
+        pm_help=False)
+    bot = setupBot(bot)
 
-        # Login, start bot
-        bot.add_cog(ServerBot(bot))
-        bot.run(config_dict['token'])
+    # Login, start bot
+    bot.add_cog(ServerBot(bot))
+    bot.run(os.environ[const.TOKEN_STR])

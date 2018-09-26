@@ -1,7 +1,8 @@
 # Value constants
 DEFAULT_PREFIX = "!"
 DIVIDER = "----"
-DEFUALT_STR = "default"
+DEFAULT_STR = "DEFAULT"
+DEBUG_STR = "debug"
 PREFIX_STR = "prefix"
 TOKEN_STR = "token"
 

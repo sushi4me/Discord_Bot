@@ -1,6 +1,5 @@
-import asyncio
-import const
 import discord
+import lib.const
 
 from debug import dprint
 from discord.ext import commands
@@ -9,16 +8,7 @@ from discord.voice_client import VoiceClient
 class ServerBot:
     def __init__(self, bot):
         self.bot = bot
-        self.voice_states = {}
         dprint('Success!')
-
-    def get_voice_state(self, server):
-        state = self.voice_states.get(server.id)
-        if state is None:
-            state = VoiceState(self.bot)
-            self.voice_states[server.id] = state
-
-        return state
 
     @commands.command(name="test")
     async def _echo_test(self, ctx):
