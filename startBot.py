@@ -15,7 +15,7 @@ import traceback
 from datetime import datetime
 from discord.ext import commands
 from optparse import OptionParser
-from .configManager import ConfigManager
+from configManager import ConfigManager
 
 
 # List of extensions
