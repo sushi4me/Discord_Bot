@@ -85,25 +85,29 @@ class Giphy:
         await ctx.send(url)
     """
 
-    def get_voice_state(self, server):
-        state = self.voice_state.get(server.id)
+    def get_voice_state(self, author):
+        state = author.voice
         if state is None:
             state = VoiceState(self.server_bot)
-            self.voice_state[server.id] = state
+            self.voice_state[author.id] = state
         return state
 
     @commands.command(name="join")
     async def _join_channel(self, ctx):
-        channel = ctx.message.author
-        if channel is None:
+        voice_state = ctx.message.author.voice
+        if voice_state is None:
             await self.server_bot.say("You are not in a voice channel.")
-            return False        
-        state = self.get_voice_state(ctx.message.server)
-        if state.voice is None:
-            state.voice = await self.server_bot.join_voice_channel(channel)
+            return False
+        else:
+            await self.server_bot.join_voice_channel(voice_state.channel)
+        """
+        state = self.get_voice_state(ctx.message.author)
+        if state.channel is None:
+            state.voice = await self.server_bot.join_voice_channel(author.voice.channel)
         else:
             await state.voice.move_to(channel)
         return True
+        """
 
 
 def setup(server_bot):
