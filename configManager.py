@@ -27,6 +27,7 @@ class ConfigManager:
         else:
             for config_var in config_vars_list:
                 try:
+                    self.config_dict['DEFAULT'] = {}
                     self.config_dict['DEFAULT'][config_var] = os.environ[config_var]
                 except KeyError:
                     self.config_dict['DEFAULT'][config_var] = "None"
