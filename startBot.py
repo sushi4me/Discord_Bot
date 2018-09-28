@@ -5,7 +5,6 @@ Used in setting up and starting the ServerBot.
 
 # Import statements
 import aiohttp
-import asyncpg
 import discord
 import os
 import sys
@@ -47,10 +46,10 @@ class ServerBot(commands.Bot):
         """
         self.start_time = time.time()
         self.session = aiohttp.ClientSession(loop=self.loop)
-        self.prefix = config_dict['DEFAULT']['prefix']
-        self.discord_token = config_dict['DEFAULT']['discord_token']
+        self.prefix = config_dict['discord']['prefix']
+        self.discord_token = config_dict['discord']['discord_token']
         #self.giphy_api_key = config_dict['DEAFULT']['giphy_token']
-        self.debug = config_dict['DEFAULT']['debug']
+        self.debug = config_dict['discord']['debug']
 
         for extension in extensions:
             try:
@@ -105,10 +104,8 @@ if __name__ == "__main__":
     # Read configuration file from local
     if options.local:
         config = ConfigManager(config_file="config.ini")
-        print("Config vars will come from config.ini")
     else:
         config = ConfigManager()
-        print("Config vars will come from os.environ")
 
     # Create and run ServerBot
     server_bot = ServerBot(config.config_dict)

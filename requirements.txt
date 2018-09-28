@@ -1,10 +1,5 @@
 aiohttp
-asyncpg
-discord.py[voice]
-opuslib
-paramiko
 pip
 PyNaCl
-pyowm
-websockets
-youtube-dl
+pyyaml
+websockets>=5.0
